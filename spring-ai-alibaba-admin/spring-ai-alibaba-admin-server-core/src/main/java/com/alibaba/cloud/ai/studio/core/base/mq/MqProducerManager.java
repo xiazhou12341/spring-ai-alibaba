@@ -57,6 +57,10 @@ public class MqProducerManager {
 	 * @return Send result containing message ID
 	 */
 	public SendResult send(Producer producer, MqMessage message) {
+		if (producer == null) {
+			log.warn("Producer is null, skipping message to topic: {}", message.getTopic());
+			return SendResult.builder().messageId("skipped-null-producer").build();
+		}
 		try {
 			SendReceipt sendReceipt = producer.send(buildMessage(message));
 			return SendResult.builder().messageId(sendReceipt.getMessageId().toString()).build();
@@ -75,6 +79,10 @@ public class MqProducerManager {
 	 * @return Send result containing message ID
 	 */
 	public SendResult sendDelay(Producer producer, MqMessage message, int delaySeconds) {
+		if (producer == null) {
+			log.warn("Producer is null, skipping delayed message to topic: {}", message.getTopic());
+			return SendResult.builder().messageId("skipped-null-producer").build();
+		}
 		try {
 			// 计算延迟时间戳
 			long deliveryTimestamp = System.currentTimeMillis() + (delaySeconds * 1000L);
@@ -96,6 +104,10 @@ public class MqProducerManager {
 	 * @param callback Callback to handle send results
 	 */
 	public void sendAsync(Producer producer, List<MqMessage> messages, SendCallback callback) {
+		if (producer == null) {
+			log.warn("Producer is null, skipping async messages");
+			return;
+		}
 		try {
 			List<CompletableFuture<SendReceipt>> futures = new ArrayList<>();
 			for (MqMessage message : messages) {
@@ -129,6 +141,10 @@ public class MqProducerManager {
 	 */
 	public void sendAsync(Producer producer, List<MqMessage> messages, Consumer<SendResult> onSuccess,
 			Consumer<Throwable> onError) {
+		if (producer == null) {
+			log.warn("Producer is null, skipping async messages");
+			return;
+		}
 		sendAsync(producer, messages, new SendCallback() {
 			@Override
 			public void onSuccess(SendResult sendResult) {

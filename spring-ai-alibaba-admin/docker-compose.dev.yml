@@ -1,0 +1,277 @@
+###############################################################################
+# docker-compose.dev.yml — Spring AI Alibaba Admin 开发环境（一键启动所有依赖）
+#
+# 用法:
+#   docker compose -f docker-compose.dev.yml up -d            # 启动全部
+#   docker compose -f docker-compose.dev.yml up -d mysql redis # 只启动部分
+#   docker compose -f docker-compose.dev.yml ps                # 查看状态
+#   docker compose -f docker-compose.dev.yml down -v           # 停止并清理数据
+#
+# 替代 scripts/deps-*.sh 系列脚本，适合偏好纯 Docker 方案的同学
+###############################################################################
+
+services:
+  # ============================================================
+  # 1. MySQL 8.0
+  #    端口: 3306
+  #    初始化: 自动建库 agentscope + admin，导入 schema
+  # ============================================================
+  mysql:
+    image: mysql:8.0.35
+    container_name: saa-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/middleware/init/mysql:/docker-entrypoint-initdb.d
+      - ./docker/middleware/conf/mysql:/etc/mysql/conf.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-padmin"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    networks:
+      - saa-net
+
+  # ============================================================
+  # 2. Redis 7.2
+  #    端口: 6379
+  # ============================================================
+  redis:
+    image: redis:7.2.5
+    container_name: saa-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - saa-net
+
+  # ============================================================
+  # 3. Nacos 2.x
+  #    端口: 8848 (HTTP), 9848 (gRPC)
+  #    模式: standalone
+  # ============================================================
+  nacos:
+    image: nacos/nacos-server:latest
+    container_name: saa-nacos
+    restart: unless-stopped
+    environment:
+      MODE: standalone
+      NACOS_AUTH_TOKEN: dG9rZW5hbHNka2ZqbGFza2RqZmxhc2tkamZsYXNrZGpmb3dpZWpmbztzZGxm
+      NACOS_AUTH_IDENTITY_KEY: admin
+      NACOS_AUTH_IDENTITY_VALUE: admin
+      SPRING_DATASOURCE_PLATFORM: ""
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "7848:7848"
+    volumes:
+      - nacos_data:/home/nacos/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8848/nacos/"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    networks:
+      - saa-net
+
+  # ============================================================
+  # 4. Elasticsearch 9.1
+  #    端口: 9200 (HTTP), 9300 (Transport)
+  # ============================================================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.1.2
+    container_name: saa-elasticsearch
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      xpack.security.enrollment.enabled: "false"
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      cluster.name: es-cluster
+      node.name: es-node-1
+      bootstrap.memory_lock: "true"
+      http.cors.enabled: "true"
+      http.cors.allow-origin: '"*"'
+      action.destructive_requires_name: "false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    networks:
+      - saa-net
+
+  # ============================================================
+  # 5. Kibana 9.1
+  #    端口: 5601
+  # ============================================================
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.1.2
+    container_name: saa-kibana
+    restart: unless-stopped
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      xpack.security.enabled: "false"
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - saa-net
+
+  # ============================================================
+  # 6. RocketMQ 5.3
+  #    NameServer: 9876
+  #    Broker:     10909/10911/10912
+  #    Proxy:      18080/18081
+  # ============================================================
+  rocketmq-namesrv:
+    image: apache/rocketmq:5.3.0
+    container_name: saa-rmq-namesrv
+    restart: unless-stopped
+    environment:
+      JAVA_OPT_EXT: "-Xms128M -Xmx256M -Xmn128M"
+    ports:
+      - "9876:9876"
+    command: sh mqnamesrv
+    networks:
+      - saa-net
+    # NOTE: RocketMQ 容器极简化无 curl/netstat/ss/apt，无法容器内健康检查
+    #       依赖 rocketmq-init 跑完后手动验证
+
+  rocketmq-broker:
+    image: apache/rocketmq:5.3.0
+    container_name: saa-rmq-broker
+    restart: unless-stopped
+    environment:
+      NAMESRV_ADDR: rocketmq-namesrv:9876
+      JAVA_OPT_EXT: "-Xms256M -Xmx512M -Xmn256M -XX:MaxDirectMemorySize=128M"
+    ports:
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    volumes:
+      - rmq_store:/home/rocketmq/store
+    depends_on:
+      rocketmq-namesrv:
+        condition: service_started
+    command: sh mqbroker
+    networks:
+      - saa-net
+    # NOTE: RocketMQ 容器极简化，无容器内健康检查
+
+  rocketmq-proxy:
+    image: apache/rocketmq:5.3.0
+    container_name: saa-rmq-proxy
+    restart: unless-stopped
+    environment:
+      NAMESRV_ADDR: rocketmq-namesrv:9876
+      JAVA_OPT_EXT: "-Xms128M -Xmx256M -Xmn128M"
+    ports:
+      - "18080:18080"
+      - "18081:18081"
+    depends_on:
+      rocketmq-broker:
+        condition: service_started
+    volumes:
+      - ./docker/middleware/conf/rocketmq:/home/rocketmq/conf
+    command: sh mqproxy -pc /home/rocketmq/conf/rmq-proxy.json
+    networks:
+      - saa-net
+    # NOTE: RocketMQ 容器极简化，无容器内健康检查
+
+  # ---- RocketMQ 初始化 Topic & ConsumerGroup ----
+  rocketmq-init:
+    image: apache/rocketmq:5.3.0
+    container_name: saa-rmq-init
+    restart: "no"
+    depends_on:
+      rocketmq-namesrv:
+        condition: service_started
+      rocketmq-broker:
+        condition: service_started
+    networks:
+      - saa-net
+    entrypoint: >
+      sh -c "
+        echo 'Creating topic_saa_studio_document_index...' &&
+        sh mqadmin updateTopic -n rocketmq-namesrv:9876 \
+          -t topic_saa_studio_document_index \
+          -c DefaultCluster \
+          -a +message.type=NORMAL &&
+        sh mqadmin updateSubGroup -n rocketmq-namesrv:9876 \
+          -g group_saa_studio_document_index \
+          -c DefaultCluster &&
+        echo 'Topic & ConsumerGroup created'
+      "
+
+  # ============================================================
+  # 7. LoongCollector 3.1.4 (OTel 收集器)
+  #    端口: 4318 (OTLP HTTP)
+  # ============================================================
+  loongcollector:
+    image: sls-opensource-registry.cn-shanghai.cr.aliyuncs.com/loongcollector-community-edition/loongcollector:3.1.4
+    container_name: saa-loongcollector
+    restart: unless-stopped
+    ports:
+      - "4318:4318"
+    volumes:
+      - ./docker/middleware/conf/loongcollector:/usr/local/loongcollector/conf/continuous_pipeline_config/local
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - saa-net
+
+# ================================================================
+# Volumes
+# ================================================================
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  nacos_data:
+    driver: local
+  es_data:
+    driver: local
+  rmq_store:
+    driver: local
+
+# ================================================================
+# Networks
+# ================================================================
+networks:
+  saa-net:
+    driver: bridge

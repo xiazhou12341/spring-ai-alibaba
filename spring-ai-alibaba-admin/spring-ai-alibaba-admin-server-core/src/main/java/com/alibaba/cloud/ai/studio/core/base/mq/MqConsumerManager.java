@@ -28,6 +28,7 @@ import org.apache.rocketmq.client.apis.consumer.FilterExpression;
 import org.apache.rocketmq.client.apis.consumer.PushConsumer;
 import org.apache.rocketmq.client.apis.message.MessageView;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -43,8 +44,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
+
 public class MqConsumerManager {
+
+	public MqConsumerManager(MqConfigProperties mqConfigProperties) {
+		this.mqConfigProperties = mqConfigProperties;
+	}
 
 	// RocketMQ client service provider
 	private static final ClientServiceProvider provider = ClientServiceProvider.loadService();
@@ -53,7 +58,8 @@ public class MqConsumerManager {
 	private final MqConfigProperties mqConfigProperties;
 
 	// Client configuration for RocketMQ
-	private final ClientConfiguration clientConfiguration;
+	@Autowired(required = false)
+	private ClientConfiguration clientConfiguration;
 
 	// Map of consumer groups to their corresponding consumer instances
 	private final Map<String, PushConsumer> consumerMap = new ConcurrentHashMap<>();
@@ -65,6 +71,10 @@ public class MqConsumerManager {
 	 * @param handler message handler for processing messages
 	 */
 	public void subscribe(String group, String topic, MqConsumerHandler<MqMessage> handler) {
+		if (clientConfiguration == null) {
+			log.warn("RocketMQ clientConfiguration is null, skipping subscription to group: {}, topic: {}", group, topic);
+			return;
+		}
 		FilterExpression filterExpression = FilterExpression.SUB_ALL;
 
 		try {

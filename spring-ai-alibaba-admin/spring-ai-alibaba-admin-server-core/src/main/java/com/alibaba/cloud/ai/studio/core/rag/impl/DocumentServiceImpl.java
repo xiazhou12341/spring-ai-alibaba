@@ -62,6 +62,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -97,19 +98,18 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, DocumentEnt
 	private final IndexPipeline knowledgeBaseIndexPipeline;
 
 	/** Producer for document indexing messages */
-	@Qualifier("documentIndexProducer")
-	private final Producer documentIndexProducer;
+		@Autowired(required = false)
+		@Qualifier("documentIndexProducer")
+	private Producer documentIndexProducer;
 
 	public DocumentServiceImpl(MqProducerManager mqProducerManager, MqConfigProperties mqConfigProperties,
 			KnowledgeBaseService knowledgeBaseService, VectorStoreFactory vectorStoreFactory,
-			IndexPipeline knowledgeBaseIndexPipeline,
-			@Qualifier("documentIndexProducer") Producer documentIndexProducer) {
-		this.mqProducerManager = mqProducerManager;
+			IndexPipeline knowledgeBaseIndexPipeline) {
+			this.mqProducerManager = mqProducerManager;
 		this.mqConfigProperties = mqConfigProperties;
 		this.knowledgeBaseService = knowledgeBaseService;
 		this.vectorStoreFactory = vectorStoreFactory;
 		this.knowledgeBaseIndexPipeline = knowledgeBaseIndexPipeline;
-		this.documentIndexProducer = documentIndexProducer;
 	}
 
 	/**

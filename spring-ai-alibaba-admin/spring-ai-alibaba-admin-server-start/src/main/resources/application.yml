@@ -134,7 +134,7 @@ mybatis:
 rocketmq:
   # 支持通过环境变量覆盖，默认值在各个 profile 中定义
   # ROCKETMQ_ENDPOINTS, ROCKETMQ_DOCUMENT_INDEX_TOPIC, ROCKETMQ_DOCUMENT_INDEX_GROUP
-  endpoints: ${ROCKETMQ_ENDPOINTS}
+  endpoints: ${ROCKETMQ_ENDPOINTS:}
   document-index-topic: ${ROCKETMQ_DOCUMENT_INDEX_TOPIC:topic_saa_studio_document_index}
   document_index_group: ${ROCKETMQ_DOCUMENT_INDEX_GROUP:group_saa_studio_document_index}
 initializr:

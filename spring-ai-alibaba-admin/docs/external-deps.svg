@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2014.5500000000002 1209" width="2014.5500000000002" height="1209" style="--bg:#ffffff;--fg:#1f2328;--accent:#2563eb;--muted:#656d76;--surface:#f6f8fa;--border:#d1d9e0;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 30%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="4.8" refX="8" refY="2.4" orient="auto">
+    <polygon points="0 0, 8 2.4, 0 4.8" fill="var(--_arrow)" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="4.8" refX="0" refY="2.4" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.4, 8 4.8" fill="var(--_arrow)" />
+  </marker>
+</defs>
+<rect x="40" y="233" width="664.6" height="936" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+<rect x="40" y="233" width="664.6" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+<text x="52" y="247" dy="0.35em" font-size="12" font-weight="600" fill="var(--_text-sec)">&quot;  KEY JAVA LIBRARIES  &quot;</text>
+<rect x="202.8125" y="40" width="1606.8000000000002" height="112" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+<rect x="202.8125" y="40" width="1606.8000000000002" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+<text x="214.8125" y="54" dy="0.35em" font-size="12" font-weight="600" fill="var(--_text-sec)">&quot;  spring-ai-alibaba-admin  &quot;</text>
+<rect x="728.6000000000001" y="503" width="593.1" height="396" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+<rect x="728.6000000000001" y="503" width="593.1" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+<text x="740.6000000000001" y="517" dy="0.35em" font-size="12" font-weight="600" fill="var(--_text-sec)">&quot;  MIDDLEWARE (self-hosted · Docker Compose)  &quot;</text>
+<rect x="1345.7" y="503" width="628.85" height="396" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+<rect x="1345.7" y="503" width="628.85" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+<text x="1357.7" y="517" dy="0.35em" font-size="12" font-weight="600" fill="var(--_text-sec)">&quot;  EXTERNAL APIs / CLOUD SERVICES  &quot;</text>
+<polyline points="1025.15,132 1025.15,152 372.3,152 372.3,269" fill="none" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline points="1025.15,132 1025.15,539" fill="none" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline points="1025.15,132 1025.15,152 1660.125,152 1660.125,539" fill="none" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<rect x="358.58" y="187" width="27.44" height="27" rx="4" ry="4" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="372.3" y="200.5" text-anchor="middle" dy="0.35em" font-size="11" font-weight="400" fill="var(--_text-muted)">15</text>
+<rect x="1014.2900000000001" y="187" width="21.72" height="27" rx="4" ry="4" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="1025.15" y="200.5" text-anchor="middle" dy="0.35em" font-size="11" font-weight="400" fill="var(--_text-muted)">6</text>
+<rect x="1649.265" y="187" width="21.72" height="27" rx="4" ry="4" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="1660.125" y="200.5" text-anchor="middle" dy="0.35em" font-size="11" font-weight="400" fill="var(--_text-muted)">6</text>
+<rect x="748.1750000000001" y="96" width="553.95" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="106.05000000000001" y="281" width="532.5" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="102.47499999999997" y="341" width="539.6500000000001" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="148.95" y="401" width="446.70000000000005" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="156.1" y="461" width="432.40000000000003" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="77.44999999999999" y="521" width="589.7" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="95.32499999999999" y="581" width="553.95" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="106.05000000000001" y="641" width="532.5" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="123.92499999999998" y="701" width="496.75000000000006" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="123.92499999999998" y="761" width="496.75000000000006" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="56" y="821" width="632.6" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="106.05000000000001" y="881" width="532.5" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="184.7" y="941" width="375.20000000000005" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="120.35" y="1001" width="503.90000000000003" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="77.44999999999999" y="1061" width="589.7" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="145.375" y="1121" width="453.85" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="783.9250000000002" y="551" width="482.45000000000005" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="798.2250000000001" y="611" width="453.85" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="787.5000000000001" y="671" width="475.3" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="744.6000000000001" y="731" width="561.1" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="787.5000000000001" y="791" width="475.3" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="751.7500000000001" y="851" width="546.8000000000001" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="1411.75" y="551" width="496.75000000000006" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="1361.7" y="611" width="596.85" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="1408.175" y="671" width="503.90000000000003" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="1404.6000000000001" y="731" width="511.05" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="1379.575" y="791" width="561.1" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<rect x="1361.7" y="851" width="596.85" height="36" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+<text x="1025.15" y="114" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Agent Studio · Java 17 · Spring Boot 3.3 · v1.0.0-SNAPSHOT · port :8080&quot;</text>
+<text x="372.3" y="299" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Spring AI Alibaba · spring-ai-alibaba-core · graph-core · v1.0.0.3/4&quot;</text>
+<text x="372.3" y="359" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Spring AI · openai · deepseek · ollama · elasticsearch-store · v1.0.3&quot;</text>
+<text x="372.3" y="419" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Spring Boot · web · jpa · actuator · validation · v3.3.6&quot;</text>
+<text x="372.3" y="479" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;MyBatis-Plus + Druid · spring-boot3 · v3.5.9 / v1.2.20&quot;</text>
+<text x="372.3" y="539" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Redisson · redisson-spring-boot-starter · Distributed cache &amp; lock · v3.27.2&quot;</text>
+<text x="372.3" y="599" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;OTel / Micrometer · tracing-bridge-otel · exporter-otlp · registry-otlp&quot;</text>
+<text x="372.3" y="659" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;RocketMQ Client · rocketmq-client-java · Async doc indexing · v5.0.7&quot;</text>
+<text x="372.3" y="719" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Elasticsearch Java · elasticsearch-java · rest-client · v8.13.4&quot;</text>
+<text x="372.3" y="779" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;GraalVM Polyglot · js · python-language · truffle-api · v24.2.1&quot;</text>
+<text x="372.3" y="839" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Auth / Security · jjwt JWT v0.12.6 · argon2-jvm v2.11 · password hash · token sign&quot;</text>
+<text x="372.3" y="899" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Swagger Parser · swagger-parser v2.1.22 · swagger-inflector · models&quot;</text>
+<text x="372.3" y="959" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;MCP SDK · io.modelcontextprotocol.sdk · v0.9.0&quot;</text>
+<text x="372.3" y="1019" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;JGraphT + Guava · jgrapht-core v1.5.2 · guava v33.4.6-jre · ognl&quot;</text>
+<text x="372.3" y="1079" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Spring Initializr · initializr-generator-spring · v0.22.0 · code scaffolding&quot;</text>
+<text x="372.3" y="1139" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;ASM + Nashorn · asm v9.5 bytecode · nashorn-core v15.4 JS&quot;</text>
+<text x="1025.15" y="569" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;MySQL 8 · Primary RDBMS · All business tables · :3306 v8.0.35&quot;</text>
+<text x="1025.15" y="629" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Redis 7 · Session cache · Distributed lock · :6379 v7.2.5&quot;</text>
+<text x="1025.15" y="689" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;RocketMQ 5 · Async doc index · RAG event bus · :18080 v5.3.2&quot;</text>
+<text x="1025.15" y="749" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Elasticsearch · Vector store (RAG) · Trace index · search · :9200 v9.1.2&quot;</text>
+<text x="1025.15" y="809" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Nacos · Config center · Prompt sync to agents · :8848 latest&quot;</text>
+<text x="1025.15" y="869" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;LoongCollector · OTel OTLP receiver · Pushes spans → ES · :4318 v3.1.4&quot;</text>
+<text x="1660.125" y="569" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;OpenAI · Chat · Embedding · Image generation · spring-ai-openai&quot;</text>
+<text x="1660.125" y="629" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;DashScope · Alibaba Cloud Bailian · Qwen / ARMS obs. · spring-ai-alibaba-core&quot;</text>
+<text x="1660.125" y="689" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;DeepSeek · Reasoning model · API-compatible · spring-ai-deepseek&quot;</text>
+<text x="1660.1250000000002" y="749" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Ollama · Local LLM runtime · Offline / on-prem · spring-ai-ollama&quot;</text>
+<text x="1660.125" y="809" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;Aliyun OSS · Object storage · File / doc upload · aliyun-sdk-oss v3.17.4&quot;</text>
+<text x="1660.125" y="869" text-anchor="middle" dy="0.35em" font-size="13" font-weight="500" fill="var(--_text)">&quot;MCP Servers · External tool servers · Model Context Protocol · mcp-sdk v0.9.0&quot;</text>
+</svg>

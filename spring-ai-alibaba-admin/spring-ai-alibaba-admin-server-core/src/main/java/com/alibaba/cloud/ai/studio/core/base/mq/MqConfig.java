@@ -23,17 +23,19 @@ import org.apache.rocketmq.client.apis.ClientConfigurationBuilder;
 import org.apache.rocketmq.client.apis.ClientException;
 import org.apache.rocketmq.client.apis.ClientServiceProvider;
 import org.apache.rocketmq.client.apis.producer.Producer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration class for RocketMQ client setup. Provides beans for client configuration
- * and document index producer.
+ * and document index producer. Disabled when rockerMQ is not configured.
  *
  * @since 1.0.0.3
  */
 @Data
 @Configuration
+@ConditionalOnExpression("'${rocketmq.endpoints:}' != ''")
 public class MqConfig {
 
 	/**
